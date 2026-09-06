@@ -16,7 +16,7 @@ code { font-family: var(--mono); }
 
 /* Metadata is ordinary reading text. Numbers and symbols retain monospace below. */
 .eyebrow, .section-number, .project-kicker, .card-status,
-.developer-role, .hero-capabilities, .action-link, .signal-path,
+.developer-role, .hero-capabilities, .action-link,
 .project-route, .project-meta, .section-label, .diagram-title,
 .project-brief span, .release-status span, .case-tag,
 .ownership-grid strong, .technical-details summary, .evidence-shot figcaption,
@@ -46,14 +46,12 @@ code { font-family: var(--mono); }
 .project-kicker a:hover { color: var(--text); text-decoration-color: var(--accent); }
 
 /* A compact introduction opens into an ordered collection, not equal tiles. */
-.home-hero { min-height: auto; padding-block: 3rem 2rem; }
+.home-hero { min-height: auto; padding-block: 2.25rem 1.5rem; }
 .home-hero h1 { max-width: none; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: -.05em; }
 .developer-role { margin-bottom: 1.1rem; font-size: 1rem; }
 .hero-statement { max-width: 40rem; font-size: clamp(1.15rem, 2.3vw, 1.65rem); }
 .hero-capabilities { margin-bottom: 1rem; font-size: .85rem; }
-.home-hero .hero-actions { margin-bottom: 1.3rem; }
-.signal-path { max-width: 24rem; font-size: .72rem; color: var(--muted); }
-.signal-path i { margin-inline: .8rem; }
+.home-hero .hero-actions { margin-bottom: 0; }
 .project-index { padding-block: 2rem var(--space-section); }
 .section-heading { display: block; padding-bottom: 1.25rem; }
 .section-heading h2 { font-size: clamp(2rem, 4vw, 3rem); }
@@ -112,6 +110,13 @@ code { font-family: var(--mono); }
 .project-meta { border: 0; padding: 0; margin: 1.25rem 0; font-size: .8rem; line-height: 1.6; }
 .hero-copy .hero-actions { gap: .75rem; }
 .action-link { font-size: .82rem; line-height: 1.3; }
+.repository-note {
+  max-width: 60ch;
+  margin: .75rem 0 0;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.65;
+}
 
 /* Action Required: broad cinematic frame under a compact two-column introduction. */
 .action-page .hero { grid-template-columns: 1fr; }
@@ -161,7 +166,9 @@ code { font-family: var(--mono); }
 .case04-page .hero-copy .hero-lead { grid-column: 1; grid-row: 3; }
 .case04-page .hero-copy .hero-note { grid-column: 1; grid-row: 4; }
 .case04-page .hero-copy .project-meta { grid-column: 1; grid-row: 5; }
-.case04-page .hero > figure { grid-column: 2; grid-row: 3 / 6; align-self: start; }
+.case04-page .hero-copy .hero-actions { grid-column: 1; grid-row: 6; }
+.case04-page .hero-copy .repository-note { grid-column: 1; grid-row: 7; }
+.case04-page .hero > figure { grid-column: 2; grid-row: 3 / 8; align-self: start; }
 .case04-page .hero-copy h1 { font-size: clamp(3rem, 5vw, 5rem); }
 .case04-page .hero-copy .hero-note { line-height: 1.75; }
 
@@ -241,8 +248,17 @@ code { font-family: var(--mono); }
   transition: color 180ms ease, background-color 180ms ease, text-decoration-color 180ms ease;
 }
 .action-link:active { transform: translateY(1px); }
-@media (max-width: 1000px) {
+@media (max-width: 1120px) {
   .site-header { flex-direction: column; align-items: flex-start; gap: .85rem; padding-block: 1rem; }
+  .action-page .hero-copy { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+  .action-page .hero-copy > *, .action-page .hero-copy .eyebrow,
+  .action-page .hero-copy h1, .action-page .hero-copy .hero-lead {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .action-page .hero-copy .project-meta { margin-top: 1.25rem; }
+}
+@media (max-width: 1000px) {
   .hero-copy h1, .hero-copy h1.long-title { font-size: 2.8rem; }
 }
 @media (max-width: 767px) {
@@ -292,6 +308,7 @@ code { font-family: var(--mono); }
   .project-page .hero .hero-note { order: 5; }
   .project-page .hero .project-meta { order: 6; }
   .project-page .hero .hero-actions { order: 7; }
+  .project-page .hero .repository-note { order: 8; }
   .ainvil-page .hero > .diagram { order: 4; }
   .ainvil-page .hero > .ainvil-runtime-proof { order: 5; }
   .ainvil-page .hero .hero-note { order: 3; }
