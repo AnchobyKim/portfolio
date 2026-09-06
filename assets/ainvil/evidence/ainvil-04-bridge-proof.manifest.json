@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "evidenceId": "AINVIL-04-BRIDGE-PROOF",
+  "generatedAt": "2026-09-06T03:53:32.792Z",
+  "claim": "A recorded Unity Bridge compile-gate run reached the health endpoint and Unity tool targets, with zero compile and console errors.",
+  "honestyBoundary": "Recorded evidence and the fresh probe are reported separately. An unavailable fresh probe does not invalidate the retained historical run.",
+  "recordedRun": {
+    "startedAt": "2026-07-06T06:14:16.254Z",
+    "finishedAt": "2026-07-06T06:14:17.897Z",
+    "status": "Passed",
+    "unityProjectPath": "E:/wiseongjun/Unity/DungeonRecoveryCompany",
+    "healthUrl": "http://127.0.0.1:17777/health",
+    "compileErrorCount": 0,
+    "consoleErrorCount": 0,
+    "checks": [
+      {
+        "id": "compile_gate.bridge_health",
+        "target": "http://127.0.0.1:17777/health",
+        "status": "Passed",
+        "ok": true,
+        "message": "Unity Bridge health endpoint is reachable.",
+        "data": {
+          "ok": true,
+          "bridgeRunning": true,
+          "bridgeStatus": "running",
+          "capabilityVersion": "0.6.0-validation-probes",
+          "unityVersion": "6000.5.0f1",
+          "isPlaying": false,
+          "isPlayingOrWillChangePlaymode": false,
+          "playModeTransitionCount": 3
+        }
+      },
+      {
+        "id": "compile_gate.unity_get_status",
+        "target": "unity_get_status",
+        "status": "Passed",
+        "ok": true,
+        "message": "unity_get_status succeeded.",
+        "data": {
+          "ok": true,
+          "bridgeRunning": true,
+          "bridgeStatus": "running",
+          "capabilityVersion": "0.6.0-validation-probes",
+          "unityVersion": "6000.5.0f1",
+          "projectPath": "E:/wiseongjun/Unity/DungeonRecoveryCompany/Assets",
+          "isPlaying": false,
+          "isPaused": false,
+          "isPlayingOrWillChangePlaymode": false,
+          "isCompiling": false,
+          "isUpdating": false,
+          "playModeTransitionCount": 3,
+          "inputTestBridgeAvailable": false,
+          "activeScene": {
+            "name": "DRC_ProceduralRecoveryJob",
+            "path": "Assets/AInvilGenerated/DungeonRecoveryFirstPlayable/Scenes/DRC_ProceduralRecoveryJob.unity",
+            "isDirty": false,
+            "isLoaded": true,
+            "rootCount": 1
+          },
+          "selection": {
+            "activeObject": null,
+            "objects": []
+          }
+        }
+      },
+      {
+        "id": "compile_gate.unity_refresh_assets",
+        "target": "unity_refresh_assets",
+        "status": "Passed",
+        "ok": true,
+        "message": "unity_refresh_assets succeeded."
+      },
+      {
+        "id": "compile_gate.unity_compile_status",
+        "target": "unity_compile_status",
+        "status": "Passed",
+        "ok": true,
+        "message": "Unity compile status is stable and has no compile errors.",
+        "data": {
+          "isCompiling": false,
+          "isUpdating": false,
+          "hasCompileErrors": false,
+          "compileErrorCount": 0,
+          "errorCount": 0,
+          "errors": [],
+          "recentErrors": [],
+          "lastCompileFinishedAt": null,
+          "editorCanEnterPlayMode": true,
+          "isPlaying": false,
+          "isPlayingOrWillChangePlaymode": false
+        }
+      },
+      {
+        "id": "compile_gate.unity_get_console_logs",
+        "target": "unity_get_console_logs",
+        "status": "Passed",
+        "ok": true,
+        "message": "unity_get_console_logs succeeded.",
+        "data": {
+          "logs": []
+        }
+      },
+      {
+        "id": "compile_gate.local_csharp_build",
+        "target": "E:\\wiseongjun\\Unity\\DungeonRecoveryCompany\\Assembly-CSharp.csproj",
+        "status": "Passed",
+        "ok": true,
+        "message": "Local C# compile check passed."
+      }
+    ]
+  },
+  "freshProbe": {
+    "checkedAt": "2026-09-06T03:53:32.758Z",
+    "url": "http://127.0.0.1:17777/health",
+    "status": "Unavailable",
+    "error": "fetch failed"
+  },
+  "provenance": {
+    "algorithm": "SHA-256",
+    "sources": [
+      {
+        "path": "plugins/ainvil/reports/release_readiness_report.json",
+        "bytes": 22792,
+        "modifiedAt": "2026-09-04T17:57:48.207Z",
+        "sha256": "1ac32d4e68aa2d81171ac7ccecc9efe2caf9676960768d88c148892cda4c5fc5"
+      },
+      {
+        "path": "plugins/ainvil/validation/evidence/EVID-dungeon-recovery-procedural-recovery-job-e2e-latest.json",
+        "bytes": 134846,
+        "modifiedAt": "2026-07-06T06:15:36.364Z",
+        "sha256": "671016b1f06db52cfc85f4522f86d9eda01b954999d7fae8c7e8be54a15c3163"
+      },
+      {
+        "path": "plugins/ainvil/validation/evidence/EVID-dungeon-recovery-procedural-visual-validation-latest.json",
+        "bytes": 61244,
+        "modifiedAt": "2026-07-06T06:16:24.059Z",
+        "sha256": "2525dc1e37c809b4f8e843a7f062ebfac4c843c2ce8915bf44a25dedef1639bb"
+      }
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GashaGame / VASSALIA — Shared Domain, Diverged Architecture</title>
+  <meta name="description" content="같은 50-unit auto-battler domain을 service-backed hybrid와 deterministic standalone run으로 구현한 gameplay architecture case study.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GashaGame / VASSALIA — Shared Domain, Diverged Architecture">
+  <meta property="og:description" content="State ownership, backend boundary, deterministic combat, data-driven encounter를 비교한 gameplay programming 사례.">
+  <link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../styles/base.css?v=20260905-case04">
+  <link rel="stylesheet" href="../../styles/layout.css?v=20260905-case04">
+  <link rel="stylesheet" href="../../styles/components.css?v=20260905-case04">
+  <link rel="stylesheet" href="../../styles/project.css?v=20260906-positioning01">
+  <link rel="stylesheet" href="../../styles/editorial.css?v=20260906-editorial01">
+</head>
+<body class="project-page case03-page">
+  <a class="skip-link" href="#content">본문으로 이동</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../index.html">WJ<span>/</span>GAME SYSTEMS</a>
+    <nav class="site-nav" aria-label="주요 탐색"><a href="../../index.html">Projects</a><a href="../ainvil/index.html">AInvil</a><a href="../action-required/index.html">Action Required</a><a href="./index.html" aria-current="page">Gasha / VASSALIA</a><a href="../soe/index.html">SOE</a></nav>
+  </header>
+
+  <main id="content">
+    <section class="hero case03-hero" aria-labelledby="case03-title">
+      <div class="hero-copy">
+        <p class="eyebrow">01 / Gameplay Architecture</p>
+        <h1 class="case03-title" id="case03-title">GASHAGAME<br><span>/ VASSALIA</span></h1>
+        <p class="hero-lead">Shared Domain, Diverged Architecture.</p>
+        <p class="hero-note">GashaGame의 서버 시스템을 먼저 구축한 뒤, 같은 50-unit domain으로 VASSALIA를 만들어 게임플레이 자체를 standalone 환경에서 검증했다.</p>
+        <ul class="project-meta" aria-label="사용 기술"><li>Unity 6</li><li>C#</li><li>FastAPI</li><li>SQLAlchemy</li><li>Deterministic Simulation</li></ul>
+      </div>
+      <figure class="evidence-shot case03-hero-media project-video"><video autoplay muted loop controls playsinline preload="metadata" poster="../../assets/Vassilia%26GashaGame/portfolio-og.jpg" aria-label="GashaGame과 VASSALIA의 게임플레이 구조를 함께 보여주는 대표 영상"><source src="../../assets/Vassilia%26GashaGame/gashagame-vassalia-hero.mp4" type="video/mp4"></video><figcaption>GASHAGAME / VASSALIA · SHARED DOMAIN, DIVERGED RUNTIME · 12 SEC</figcaption></figure>
+    </section>
+    <nav class="case-nav" aria-label="GashaGame과 VASSALIA 사례 바로가기"><a href="#relationship">Relationship</a><a href="#ownership">State ownership</a><a href="#determinism">Determinism</a><a href="#encounter">Encounter</a><a href="#result">Result</a></nav>
+
+    <section class="section" id="relationship" aria-labelledby="relationship-title">
+      <div class="section-intro"><p class="section-label">02 / PROJECT RELATIONSHIP</p><div><h2 id="relationship-title">같은 규칙에서, 다른 제품 경계로.</h2><p>두 프로젝트는 관련된 gameplay domain을 공유하지만 공통 production source나 Git 계보는 확인되지 않는다. 개발 순서와 검증 목적이 달라지며 state ownership과 runtime architecture도 갈라졌다.</p></div></div>
+      <div class="branch-story" aria-label="GashaGame에서 VASSALIA로 이어지는 프로젝트 관계">
+        <div class="branch-trunk"><span>SHARED DOMAIN</span><strong>50 Units · Auto-battler Rules</strong></div>
+        <div class="branch-steps"><span>GashaGame developed</span><span>Server systems built</span><span>Gameplay validation needed</span></div>
+        <div class="branch-projects"><article><p>GASHAGAME</p><strong>Service-backed hybrid</strong><span>Server meta · Client-local combat</span></article><article><p>VASSALIA</p><strong>Standalone prototype</strong><span>Local run · Deterministic combat</span></article></div>
+      </div>
+      <p class="boundary-note"><strong>Relationship:</strong> Related Projects / Shared Domain, Diverged Architecture</p>
+    </section>
+
+    <section class="section" id="shared-domain" aria-labelledby="shared-title">
+      <div class="section-intro"><p class="section-label">03 / SHARED DOMAIN</p><div><h2 id="shared-title">같은 gameplay vocabulary를 계승했다.</h2><p><code>char_001</code>부터 <code>char_050</code>까지의 stable identity와 핵심 규칙이 두 구현을 묶는다.</p></div></div>
+      <div class="shared-contract" aria-label="두 프로젝트의 50-unit 데이터 비교"><div><span>UNIT ID</span><strong>50 / 50</strong></div><div><span>COST</span><strong>50 / 50</strong></div><div><span>LINEAGE</span><strong>50 / 50</strong></div><div><span>JOB</span><strong>50 / 50</strong></div><div><span>DISPLAY NAME</span><strong>46 / 50</strong></div></div>
+      <div class="chip-row" aria-label="공유된 게임 규칙"><span class="chip">BOARD</span><span class="chip">BENCH</span><span class="chip">SHOP</span><span class="chip">3-COPY MERGE</span><span class="chip">SYNERGY</span><span class="chip">ROUTE</span><span class="chip">RELIC / EQUIPMENT</span></div>
+      <details class="technical-details method-note"><summary>View shared unit comparison</summary><div class="technical-details__body"><figure class="evidence-shot evidence-shot--wide"><img src="../../assets/Vassilia%26GashaGame/shared-unit-id-comparison.PNG" alt="GashaGame Character Stat Table과 VASSALIA Game Content Catalog의 char_001 필드를 나란히 비교한 Unity Inspector"><figcaption>SHARED UNIT ID · char_001 · COST / LINEAGE / JOB / DISPLAY NAME</figcaption></figure></div></details>
+      <p class="boundary-note"><strong>Shared Domain ≠ Shared Codebase.</strong> 데이터 identity와 규칙은 이어지지만 공통 production library는 확인되지 않았다.</p>
+    </section>
+
+    <section class="section" id="ownership" aria-labelledby="ownership-title">
+      <div class="section-intro"><p class="section-label">04 / CASE 01 · STATE OWNERSHIP</p><div><h2 id="ownership-title">Authority is a boundary, not a label.</h2><p>Server와 Local은 우열이 아니라 제품 목적에 맞춘 mutation boundary다. GashaGame은 networked meta와 local combat을 나눴고, VASSALIA는 한 run의 상태를 local aggregate에 모았다.</p></div></div>
+      <div class="ownership-compare">
+        <article class="boundary-card boundary-card--server"><p class="diagram-title">GashaGame · Split Ownership</p><h3>Server / Meta</h3><ul><li>Account</li><li>Gacha</li><li>Meta Currency</li><li>Formation</li><li>Stage Progression</li></ul><h3>Unity Client</h3><ul><li>Battle Simulation</li><li>Run Gold / Route</li></ul></article>
+        <article class="boundary-card boundary-card--local"><p class="diagram-title">VASSALIA · Run Aggregate</p><h3>DemoRunState</h3><ul><li>Units / Gold</li><li>Progression / Lives</li><li>Relics / Equipment</li><li>Rewards / Route</li></ul><h3>RunRandom → CombatSimulation</h3><p>한 session의 mutation과 randomness를 명시적인 local owner에 둔다.</p></article>
+      </div>
+      <div class="trust-boundary"><div><span>SERVER OWNED</span><strong>Account · Gacha · Currency · Formation · Progression</strong></div><div><span>CLIENT OWNED</span><strong>Combat Simulation</strong></div><div class="trust-boundary__result"><span>INTENTIONAL MVP TRUST BOUNDARY</span><strong>Battle Result → Server</strong></div></div>
+      <p class="hero-note">GashaGame은 AInvil을 활용해 실제 server-backed game systems 구현 가능성을 검증한 MVP였다. 현재 서버는 제출된 전투 결과를 replay하지 않고 client result를 신뢰한다.</p>
+      <div class="case-split method-note"><figure class="evidence-shot"><img src="../../assets/case03/evidence/gashagame-main-story-transition.png" alt="GashaGame Android Main Story Stage 01 전환 검증 화면"><figcaption>GASHAGAME · ANDROID MAIN STORY TRANSITION · OLDER EVIDENCE</figcaption></figure><figure class="evidence-shot project-video"><video controls muted loop playsinline preload="metadata" poster="../../assets/Vassilia%26GashaGame/gashagame-vassalia-og.jpg" aria-label="GashaGame의 서버 상태에서 Unity local combat과 결과 전달로 이어지는 실행 영상"><source src="../../assets/Vassilia%26GashaGame/gashagame-result-handoff.mp4" type="video/mp4"></video><figcaption>SERVER STATE → CLIENT-LOCAL COMBAT → RESULT HANDOFF · 14 SEC</figcaption></figure></div>
+    </section>
+
+    <section class="section" id="determinism" aria-labelledby="determinism-title">
+      <div class="section-intro"><p class="section-label">05 / CASE 02 · DETERMINISTIC GAMEPLAY</p><div><h2 id="determinism-title">속도가 달라도 결과는 같아야 한다.</h2><p>VASSALIA의 seeded <code>RunRandom</code>은 단순한 테스트 편의가 아니다. 같은 입력이 speed-up 또는 향후 replay에서도 같은 combat result를 만들도록 simulation determinism을 유지한다.</p></div></div>
+      <div class="diagram"><p class="diagram-title">Same Input → Same Result</p><div class="flow-row"><div class="flow-node">Input / Encounter</div><div class="flow-node flow-node--cool">Seeded RunRandom</div><div class="flow-node">Combat Simulation</div><div class="flow-node">Same Inputs</div><div class="flow-node flow-node--accent">Same Result</div></div><div class="chip-row"><span class="chip">SPEED ×1</span><span class="chip">SPEED ×N</span><span class="chip">REPLAY CONSISTENCY · DESIGNED</span></div></div>
+      <p class="hero-note">현재 repository에는 완성된 replay system이 확인되지 않는다. 구현된 것은 deterministic simulation과 이를 검증하는 고정 seed 검사다.</p>
+    </section>
+
+    <section class="section" id="encounter" aria-labelledby="encounter-title">
+      <div class="section-intro"><p class="section-label">06 / CASE 03 · AUTHORED ENCOUNTER</p><div><h2 id="encounter-title">Authoring data가 전투가 되기까지.</h2><p>VASSALIA는 unit, star, equipment, board coordinate를 asset에 기록하고 검증한 뒤 exact combatant seed로 runtime battle에 전달한다.</p></div></div>
+      <div class="diagram"><p class="diagram-title">Authoring → Runtime</p><div class="flow-row flow-row--six"><div class="flow-node">EnemyEncounterSO</div><div class="flow-node">EncounterSelector</div><div class="flow-node flow-node--cool">Validation</div><div class="flow-node">Combatant Seed</div><div class="flow-node">CombatSimulation</div><div class="flow-node flow-node--accent">Gameplay</div></div><div class="chip-row"><span class="chip">UNIT</span><span class="chip">STAR 1–3</span><span class="chip">EQUIPMENT ×3</span><span class="chip">A1–D8</span></div></div>
+      <div class="fail-closed"><strong>Invalid / Missing / Duplicate</strong><span>→</span><strong>Combat blocked</strong><p>잘못된 encounter data는 임의의 fallback battle로 조용히 대체되지 않고, combat 전에 content error로 노출된다.</p></div>
+      <figure class="evidence-shot project-video evidence-shot--wide method-note"><video controls muted loop playsinline preload="metadata" poster="../../assets/Vassilia%26GashaGame/portfolio-og.jpg" aria-label="VASSALIA Encounter authoring data가 검증을 거쳐 runtime battle로 이어지는 영상"><source src="../../assets/Vassilia%26GashaGame/vassalia-encounter-runtime.mp4" type="video/mp4"></video><figcaption>ENCOUNTER AUTHORING → VALIDATION → BOARD SPAWN → RUNTIME · 13 SEC</figcaption></figure>
+    </section>
+
+    <section class="section" id="economy" aria-labelledby="economy-title">
+      <div class="section-intro"><p class="section-label">07 / SMALL CASE · ATOMIC ECONOMY</p><div><h2 id="economy-title">빈자리가 아니라 최종 상태를 먼저 계산했다.</h2><p>bench가 가득 차도 같은 unit 여러 개를 구매해 즉시 합성할 수 있다면 거래는 가능해야 한다.</p></div></div>
+      <div class="case-split"><div class="atomic-purchase"><p class="diagram-title">BENCH FULL · SHOP [A] [A] [A]</p><div class="atomic-choice"><span>NAIVE</span><strong>No Slot → Reject</strong></div><div class="atomic-choice atomic-choice--actual"><span>ACTUAL</span><strong>Plan → Simulate → Validate → Commit</strong><small>A + A + A → Merge → Space Available</small></div></div><figure class="evidence-shot"><img src="../../assets/case03/gameplay/vassalia-unit-pool-card.png" alt="VASSALIA 방랑자 상점의 unit pool removal 카드 화면"><figcaption>VASSALIA · UNIT-POOL / SHOP RUNTIME UI</figcaption></figure></div>
+      <figure class="evidence-shot project-video evidence-shot--wide method-note"><video controls muted loop playsinline preload="metadata" poster="../../assets/Vassilia%26GashaGame/portfolio-og.jpg" aria-label="벤치가 가득 찬 상태에서 세 유닛 구매를 계획하고 합성한 뒤 거래를 확정하는 영상"><source src="../../assets/Vassilia%26GashaGame/assalia-atomic-purchase.mp4" type="video/mp4"></video><figcaption>BENCH FULL · PLAN → MERGE → COMMIT · 6 SEC</figcaption></figure>
+      <p class="hero-note"><code>GetShopPurchasePlan()</code>이 구매 묶음과 merge 결과를 먼저 simulation하고, 유효할 때만 gold와 unit state를 함께 commit한다.</p>
+    </section>
+
+    <section class="section" id="development" aria-labelledby="development-title">
+      <div class="section-intro"><p class="section-label">08 / DEVELOPMENT NOTE</p><div><h2 id="development-title">규칙을 함수 책임으로 내린 뒤 구현했다.</h2><p>AInvil은 이 페이지의 주제가 아니라 제작 방법이다. GDD를 분석해 필요한 함수의 책임과 이름을 먼저 매핑하고 Unity·server 구현과 검증으로 이어갔다.</p></div></div>
+      <div class="flow-row"><div class="flow-node">Design</div><div class="flow-node">Requirement</div><div class="flow-node flow-node--cool">Function Mapping</div><div class="flow-node">Implementation</div><div class="flow-node flow-node--accent">Unity / Server Validation</div></div>
+      <p class="hero-note">모든 코드의 생성 주체나 AI 작성 비율, 생산성 배수는 추정하지 않는다.</p>
+    </section>
+
+    <section class="section" id="result" aria-labelledby="result-title">
+      <div class="section-intro"><p class="section-label">09 / RESULT</p><div><h2 id="result-title">한 도메인, 두 개의 명확한 runtime contract.</h2><p>동일한 gameplay vocabulary를 유지하면서 server-backed meta architecture, client/server trust boundary, standalone run aggregate, deterministic combat, data-driven content pipeline을 서로 다른 목적에 맞게 설계했다.</p></div></div>
+      <div class="stat-row stat-row--four"><div><strong>50</strong><span>Shared unit identities</span></div><div><strong class="status-pass">20 PASS</strong><span>GashaGame server tests</span></div><div><strong class="status-pending">1 KNOWN DRIFT</strong><span>Manifest-version assertion only · gameplay unaffected</span></div><div><strong>30</strong><span>VASSALIA deterministic combats · logged</span></div></div>
+      <div class="validation-status"><span>GashaGame C# · 0 errors</span><b>·</b><span>VASSALIA C# · 0 errors</span></div>
+      <figure class="evidence-shot evidence-shot--wide method-note"><img src="../../assets/Vassilia%26GashaGame/gashagame-vassalia-og.jpg" alt="VASSALIA 전투 보드와 시너지 UI가 함께 보이는 runtime overview"><figcaption>VASSALIA · RUNTIME COMBAT OVERVIEW</figcaption></figure>
+    </section>
+
+    <section class="section" id="evidence" aria-labelledby="evidence-title">
+      <div class="section-intro"><p class="section-label">10 / TECHNICAL EVIDENCE</p><div><h2 id="evidence-title">Symbols, boundaries, validation.</h2></div></div>
+      <details class="technical-details"><summary>View Technical Evidence</summary><div class="technical-details__body case03-evidence-grid">
+        <article><h3>Shared Domain</h3><p><code>CharacterStatTable</code><br><code>DemoContentSeeds</code></p><p>50 IDs / costs / Lineages / Jobs match. 46 display names match.</p></article>
+        <article><h3>GashaGame Services</h3><p><code>ApiClient</code><br><code>GachaService</code><br><code>FormationService</code><br><code>StageService</code></p><p>Server pytest: 20 passed / 1 manifest-version assertion failed.</p></article>
+        <article><h3>GashaGame Combat Boundary</h3><p><code>AutoBattleSimulator</code><br><code>AutoBattleResultSummarySigner</code><br><code>stage_service</code></p><p>Client-local simulation; submitted result is persisted without server replay.</p></article>
+        <article><h3>VASSALIA Run</h3><p><code>DemoRunState</code><br><code>RunRandom</code><br><code>UnitPoolState</code></p><p>In-memory run aggregate; deterministic validation log retained.</p></article>
+        <article><h3>VASSALIA Encounter</h3><p><code>EnemyEncounterSO</code><br><code>EncounterSelector</code><br><code>CombatSimulation</code></p><p>Invalid / missing / duplicate data blocks combat before runtime fallback.</p></article>
+        <article><h3>Current Validation</h3><p><code>DemoValidationRunner</code><br><code>validate-demo.log</code></p><p>Both C# compiles: 0 errors. Deterministic log and provided runtime captures are retained; fresh Play Mode validation remains separate.</p></article>
+      </div></details>
+      <nav class="project-pagination" aria-label="프로젝트 이동"><a href="../action-required/index.html">← Prev · Action Required</a><a href="../../index.html">All projects</a><a href="../soe/index.html">Next · SOE →</a></nav>
+    </section>
+  </main>
+  <footer class="site-footer"><p>GashaGame / VASSALIA · Gameplay architecture case study</p><a href="#content">Back to top ↑</a></footer>
+  <script src="../../scripts/media-preferences.js"></script>
+</body>
+</html>

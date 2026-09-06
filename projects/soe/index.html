@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOE — Team Gameplay Integration</title>
+  <meta name="description" content="SOE 팀 프로젝트에서 gameplay prototyping, gameplay programming, environment·boss·telemetry system integration을 수행한 사례.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SOE — Team Gameplay Integration">
+  <meta property="og:description" content="팀이 만든 콘텐츠와 gameplay runtime 사이의 경계를 구현하고 인계한 Unity 6 사례.">
+  <link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../styles/base.css?v=20260905-case04">
+  <link rel="stylesheet" href="../../styles/layout.css?v=20260905-case04">
+  <link rel="stylesheet" href="../../styles/components.css?v=20260905-case04">
+  <link rel="stylesheet" href="../../styles/project.css?v=20260906-positioning01">
+  <link rel="stylesheet" href="../../styles/editorial.css?v=20260906-editorial01">
+</head>
+<body class="project-page case04-page">
+  <a class="skip-link" href="#content">본문으로 이동</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../index.html">WJ<span>/</span>GAME SYSTEMS</a>
+    <nav class="site-nav" aria-label="주요 탐색"><a href="../../index.html">Projects</a><a href="../ainvil/index.html">AInvil</a><a href="../action-required/index.html">Action Required</a><a href="../gashagame-vassalia/index.html">Gasha / VASSALIA</a><a href="./index.html" aria-current="page">SOE</a></nav>
+  </header>
+
+  <main id="content">
+    <section class="hero" aria-labelledby="soe-title">
+      <div class="hero-copy">
+        <p class="eyebrow">04 / Team Development</p>
+        <h1 id="soe-title">SOE</h1>
+        <p class="hero-lead">원소 스킬을 조합하며 몰려오는 적과 보스를 상대하는 3D top-down survivor.</p>
+        <p class="hero-note">초기 gameplay prototype을 제작하고, production 단계에서 환경 청크·보스 전투·전투 통계를 구현해 팀의 맵·애니메이션·스포너 시스템과 통합했습니다.</p>
+        <ul class="project-meta" aria-label="프로젝트 정보"><li>Gameplay Prototyping · Gameplay Programming · System Integration</li><li>Unity 6</li><li>C#</li><li>URP</li><li>Timeline</li><li>Team Project</li></ul>
+      </div>
+      <figure class="evidence-shot soe-hero-media soe-hero-still"><img src="../../assets/SOE/soe-gameplay-hero.webp" alt="다수의 적과 원소 스킬 HUD가 보이는 SOE Stage 1 gameplay capture" width="1600" height="900"><figcaption>STAGE 1 GAMEPLAY · PROVIDED RUNTIME CAPTURE</figcaption></figure>
+    </section>
+    <nav class="case-nav" aria-label="SOE 사례 바로가기"><a href="#role">Contribution</a><a href="#environment">Environment</a><a href="#boss">Boss combat</a><a href="#telemetry">Telemetry</a><a href="#evidence">Evidence</a></nav>
+
+    <section class="section" id="game" aria-labelledby="game-title">
+      <div class="section-intro"><p class="section-label">02 / GAME &amp; TEAM</p><div><h2 id="game-title">성장 루프 위에 팀의 시스템이 만난다.</h2><p>플레이어는 자동 발동 스킬로 적을 처치하고 경험치와 재화를 모아 원소·혼합 스킬을 성장시킨다. Timeline 기반 웨이브와 미션, 보스가 한 stage 흐름을 구성한다.</p></div></div>
+      <div class="game-loop" aria-label="SOE 게임 루프"><div class="flow-node">Move / Auto Skill</div><div class="flow-node">Defeat / Collect</div><div class="flow-node flow-node--cool">Element Upgrade</div><div class="flow-node flow-node--accent">Mission / Boss</div></div>
+      <!-- TODO: Replace with confirmed official team size / role when available. -->
+    </section>
+
+    <section class="section" id="role" aria-labelledby="role-title">
+      <div class="section-intro"><p class="section-label">03 / MY ROLE</p><div><h2 id="role-title">소유한 코드와 연결한 경계를 분리해 말한다.</h2><p>Git history와 현재 코드의 symbol ownership으로 확인 가능한 범위만 정리했다.</p></div></div>
+      <div class="soe-role-grid">
+        <article class="soe-role-card soe-role-card--owned"><span>OWNED</span><h3>Runtime systems</h3><p>TilemapGenerator, RenderingManager, SpiderQueenMovement, DataDigger 초기 구현과 반복 수정.</p></article>
+        <article class="soe-role-card soe-role-card--co"><span>CO-DEVELOPED</span><h3>Production behavior</h3><p>보스 상태와 공격 타이밍, mixed skill 및 환경 관련 production fix를 팀 코드 위에서 조정.</p></article>
+        <article class="soe-role-card soe-role-card--integrated"><span>INTEGRATED</span><h3>Team boundaries</h3><p>맵·장애물 아트, animation events, enemy spawner, Stage1, 통계 service와 runtime 계약을 연결.</p></article>
+        <article class="soe-role-card"><span>NOT CLAIMED</span><h3>Outside evidence</h3><p>원본 아트·애니메이션 제작, 전체 gameplay architecture, 공식 리드 역할, 최종 성능 수치.</p></article>
+      </div>
+      <div class="soe-development-timeline" aria-label="SOE 개발 기여 타임라인">
+        <article><span>2024.08–09 · EARLY VALIDATION</span><h3>Core-structure gameplay demo</h3><p>Production 전 핵심 구조 검증용 데모를 직접 구현했다는 개발자 확인. Git에는 <code>b7592683</code>의 명시적 작성자 기록과 <code>9dfc1a83</code>의 TestScene 작업이 남아 있다.</p><small>DEVELOPER-CONFIRMED · HISTORICAL GIT TRACE · SOURCE NO LONGER RETAINED</small></article>
+        <i aria-hidden="true"></i>
+        <article><span>2025–26 · PRODUCTION CONTRIBUTION</span><h3>Environment · Boss · Telemetry</h3><p>현재 코드와 Git history로 확인되는 환경 청크, 보스 전투 통합, DataDigger 작업을 production의 Primary Cases로 유지한다.</p><small>CURRENT CODE / COMMIT EVIDENCE RETAINED</small></article>
+      </div>
+      <p class="boundary-note"><strong>Evidence boundary:</strong> 초기 데모는 이후 unused prototype 정리 커밋 <code>6f87d384</code>에서 관련 장면이 삭제됐다. 현재 production architecture 전체를 설계했거나 그 구조가 그대로 계승됐다고 주장하지 않는다.</p>
+    </section>
+
+    <section class="section" id="environment" aria-labelledby="environment-title">
+      <div class="section-intro"><p class="section-label">04 / CASE 01 · ENVIRONMENT</p><div><h2 id="environment-title">팀의 맵 데이터를 무한 필드의 runtime 규칙으로.</h2><p>2D tilemap과 obstacle data를 3D chunk로 생성하고, 플레이어 주변 3×3만 활성화했다. 적 스폰과 재배치도 같은 chunk coordinate를 공유하도록 경계를 만들었다.</p></div></div>
+      <div class="interface-flow" aria-label="환경 시스템 팀 협업 흐름">
+        <article class="interface-column"><span>TEAM INPUT</span><strong>Map / Obstacle Art</strong><small>Tile data · Props · Prefabs</small></article>
+        <article class="interface-column interface-column--mine"><span>MY RUNTIME BOUNDARY</span><strong>TilemapGenerator → RenderingManager</strong><small>Generate chunks · Maintain active neighborhood</small></article>
+        <article class="interface-column"><span>TEAM CONSUMERS</span><strong>SpawnPointManager / EnemySpawner</strong><small>Validate spawn · Relocate outside enemies</small></article>
+      </div>
+      <div class="case-split method-note">
+        <div class="diagram"><p class="diagram-title">ACTIVE CHUNK NEIGHBORHOOD</p><div class="chunk-map" aria-label="플레이어 주변 3 곱하기 3 활성 청크"><span></span><span></span><span></span><span></span><span class="chunk-map__player">PLAYER</span><span></span><span></span><span></span><span></span></div><div class="chip-row"><span class="chip">WORLD → CHUNK</span><span class="chip">3×3 ACTIVE</span><span class="chip">SPAWN VALIDATION</span></div></div>
+        <figure class="evidence-shot project-video"><video controls muted loop playsinline preload="metadata" poster="../../assets/SOE/soe-stage1-chunk-runtime-poster.jpg" aria-label="플레이어 청크와 주변 활성 청크, 적 재배치 상태를 보여주는 SOE Environment Debug Overlay"><source src="../../assets/SOE/soe-stage1-chunk-runtime.mp4" type="video/mp4"></video><figcaption>ENVIRONMENT DEBUG OVERLAY · PLAYER CHUNK + 3×3 ACTIVE RANGE · 11 SEC</figcaption></figure>
+      </div>
+      <p class="boundary-note"><strong>Evidence:</strong> 구현 이력과 제공된 runtime capture를 함께 제시하며 성능 수치는 측정하지 않았다. 상세 commit은 Technical Evidence에 보존했다.</p>
+    </section>
+
+    <section class="section" id="boss" aria-labelledby="boss-title">
+      <div class="section-intro"><p class="section-label">05 / CASE 02 · BOSS COMBAT</p><div><h2 id="boss-title">애니메이션 타이밍을 피해 판정 계약으로.</h2><p>팀원이 만든 공용 <code>AnimatorEventProxy</code>를 소비해 Spider Queen과 Forest Golem의 상태, 예고 범위, VFX, 실제 피해 타이밍을 연결했다.</p></div></div>
+      <div class="handoff-flow" aria-label="팀 애니메이션에서 Wiseongjun의 보스 구현을 거쳐 공용 피해 시스템으로 이어지는 이벤트 계약"><div class="handoff-step handoff-step--team"><span>TEAM · ANIMATION</span><strong>Animation Clip</strong><small>Team-authored timing</small></div><div class="handoff-step handoff-step--interface"><span>TEAM INTERFACE</span><strong>AnimatorEventProxy</strong><small>OnBeforeAttack / OnAttack / OnAttackEnd</small></div><div class="handoff-step handoff-step--mine"><span>MY IMPLEMENTATION</span><strong>Boss State</strong><small>Telegraph · VFX · Pattern</small></div><div class="handoff-step handoff-step--shared"><span>SHARED GAMEPLAY</span><strong>Damage / VFX</strong><small>Runtime consumers</small></div></div>
+      <article class="case-study method-note"><p class="case-tag">PRODUCTION FIXES</p><h3>패턴이 끝나는 지점까지 책임졌다.</h3><p class="case-body">공격 prefab과 line spawn 구조를 조정하고, Spider Queen movement state 문제를 수정했다. Forest Golem은 pooling된 death cleanup과 reward multiplier까지 연결했다.</p></article>
+      <figure class="evidence-shot project-video evidence-shot--wide method-note"><video controls muted loop playsinline preload="metadata" poster="../../assets/SOE/soe-boss-runtime-contract-poster.jpg" aria-label="애니메이션 이벤트, 보스 상태, 피해 판정의 runtime 계약을 보여주는 SOE 실행 영상"><source src="../../assets/SOE/soe-boss-runtime-contract.mp4" type="video/mp4"></video><figcaption>BOSS RUNTIME CONTRACT · ANIMATION EVENT → STATE → DAMAGE · 14 SEC</figcaption></figure>
+      <p class="boundary-note"><strong>Ownership boundary:</strong> 공용 event proxy와 원본 animation/art의 제작 소유권은 주장하지 않는다. 내가 구현·수정한 boss behavior와 그 연결만 다룬다.</p>
+    </section>
+
+    <section class="section" id="telemetry" aria-labelledby="telemetry-title">
+      <div class="section-intro"><p class="section-label">06 / CASE 03 · TELEMETRY</p><div><h2 id="telemetry-title">개인 계측 도구를 팀 서비스의 출발점으로.</h2><p>DPS, 회복, 피격 피해와 스킬별 damage를 초 단위 CSV로 남기는 <code>DataDigger</code>를 만들었다. 이후 팀원이 Event Bus와 service interface 기반 통계 시스템으로 통합했다.</p></div></div>
+      <div class="handoff-flow handoff-flow--three" aria-label="전투 통계 시스템의 팀 이관 과정"><div class="handoff-step handoff-step--mine"><span>PROTOTYPE · b80a3a8e</span><strong>DataDigger + CSV chart</strong><small>Direct combat instrumentation</small></div><div class="handoff-step handoff-step--mine"><span>ITERATE · 342d59fa</span><strong>Buffered, invariant logs</strong><small>1-second DPS / GHPS / RHP · dynamic skill columns</small></div><div class="handoff-step"><span>TEAM INTEGRATION · 04212bf8</span><strong>IStatisticsService + Event Bus</strong><small>Teammate-owned service architecture</small></div></div>
+      <div class="stat-row"><div><strong>1 sec</strong><span>Aggregation interval</span></div><div><strong>3</strong><span>Core metrics · DPS / GHPS / RHP</span></div><div><strong>Dynamic</strong><span>Per-skill slot columns</span></div></div>
+      <figure class="evidence-shot project-video evidence-shot--wide method-note"><video controls muted loop playsinline preload="metadata" poster="../../assets/SOE/soe-telemetry-sync-poster.jpg" aria-label="DPS, 회복, 피격 피해, 스킬별 피해와 CSV 동기화를 보여주는 SOE Telemetry Debug Overlay"><source src="../../assets/SOE/soe-telemetry-sync.mp4" type="video/mp4"></video><figcaption>TELEMETRY DEBUG OVERLAY · RUNTIME VALUES ↔ CSV / CHART · 13 SEC</figcaption></figure>
+      <p class="boundary-note"><strong>Handoff result:</strong> 최종 service architecture는 팀원 <code>junjjang2</code>의 통합 작업이다. 여기서는 prototype의 문제 정의, 수집 schema, 반복 개선과 인계 가능한 경계에 초점을 둔다. <strong>Evidence:</strong> 646개의 committed combat CSV log가 남아 있다.</p>
+    </section>
+
+    <section class="section" id="small-cases" aria-labelledby="small-title">
+      <div class="section-intro"><p class="section-label">07 / SMALL CASES</p><div><h2 id="small-title">요청을 runtime 수정으로 닫았다.</h2></div></div>
+      <div class="small-cases"><article class="evidence-card"><p class="case-tag">REQUEST-DRIVEN FIX</p><h3>Spawn · Prefab · Timeline</h3><p>협업 중 제기된 요청을 enemy line spawn, attack prefab, Timeline 연동 수정으로 반영했다.</p><div class="chip-row"><span class="chip">c475f112</span><span class="chip">e561d0c1</span></div></article><article class="evidence-card"><p class="case-tag">SCOPED FEATURE</p><h3>Fire × Earth mixed skill</h3><p>혼합 스킬을 구현·수정했고, 불필요한 범위는 커밋에서 명시적으로 덜어내며 작업 경계를 관리했다.</p><div class="chip-row"><span class="chip">3323b2cc</span><span class="chip">87b22209</span><span class="chip">e1cb22cb</span></div></article></div>
+    </section>
+
+    <section class="section" id="team-development" aria-labelledby="team-title">
+      <div class="section-intro"><p class="section-label">08 / TEAM DEVELOPMENT</p><div><h2 id="team-title">파일이 아니라 인터페이스로 협업했다.</h2><p>나의 기여가 팀의 입력을 어디서 받고, 어떤 계약을 제공하고, 누가 소비하는지 기준으로 정리했다.</p></div></div>
+    </section>
+
+    <section class="section" id="result" aria-labelledby="result-title">
+      <div class="section-intro"><p class="section-label">09 / RESULT</p><div><h2 id="result-title">구현을 팀의 gameplay 흐름으로 연결했다.</h2><p>초기 gameplay 검증에서 production 구현, 팀 시스템 통합과 telemetry handoff까지 서로 다른 단계의 책임을 맡았다.</p></div></div>
+      <div class="result-outcome-grid" aria-label="SOE에서 확인된 세 가지 기여 결과"><article><span>ENVIRONMENT</span><strong>Map Data</strong><i>→</i><strong>Runtime Chunk</strong><i>→</i><strong>Spawner</strong></article><article><span>BOSS COMBAT</span><strong>Animation Event</strong><i>→</i><strong>Boss State</strong><i>→</i><strong>Damage</strong></article><article><span>TELEMETRY</span><strong>Combat Events</strong><i>→</i><strong>Measurement Schema</strong><i>→</i><strong>Team Service</strong></article></div>
+      <figure class="evidence-shot evidence-shot--wide method-note"><img src="../../assets/SOE/soe-og.PNG" alt="다수의 적과 원소 스킬 효과, HUD가 보이는 SOE Stage1 runtime overview"><figcaption>SOE · STAGE1 RUNTIME OVERVIEW · GAMEPLAY CAPTURE</figcaption></figure>
+      <p class="boundary-note"><strong>Validation level:</strong> Recorded Runtime Capture + Static Analysis + Git Evidence. 영상은 제공된 실행 기록이며, 이 페이지 편집 과정에서 fresh Play Mode 재검증이나 성능 측정을 수행했다고 주장하지 않는다.</p>
+    </section>
+
+    <section class="section" id="evidence" aria-labelledby="evidence-title">
+      <div class="section-intro"><p class="section-label">10 / TECHNICAL EVIDENCE</p><div><h2 id="evidence-title">Source, history, boundary.</h2></div></div>
+      <details class="technical-details"><summary>View Technical Evidence</summary><div class="technical-details__body"><table class="evidence-table"><thead><tr><th>Case</th><th>Primary symbols</th><th>Git evidence</th><th>Confidence / boundary</th></tr></thead><tbody><tr><td>Environment</td><td><code>TilemapGenerator</code><br><code>RenderingManager</code><br><code>SpawnPointManager</code><br><code>EnemySpawner.CheckEnemyChunk</code></td><td><code>40497840</code><br><code>10af59ca</code>, <code>e4550b2b</code>, <code>be83c65b</code>, <code>feb400f6</code>, <code>ee3061dd</code>, <code>f898b0d6</code>, <code>93a6a0c6</code></td><td>High · static behavior confirmed; runtime performance not measured</td></tr><tr><td>Boss combat</td><td><code>SpiderQueenMovement</code><br><code>ForestGolemMovement</code><br><code>AnimatorEventProxy</code></td><td><code>130d6f01</code>, <code>8c6e5c3a</code>, <code>c475f112</code>, <code>72e63d6d</code>, <code>3aa1bc2a</code></td><td>High · boss behavior/integration; proxy and source assets team-owned</td></tr><tr><td>Telemetry</td><td><code>DataDigger</code><br><code>IStatisticsService</code><br><code>StatisticsCollector</code><br><code>StatisticsService</code></td><td><code>b80a3a8e</code>, <code>342d59fa</code> → teammate integration <code>04212bf8</code></td><td>High · prototype owned; final service architecture teammate-owned</td></tr><tr><td>Project state</td><td>Unity <code>6000.0.59f2</code><br>URP <code>17.0.4</code><br>Input System <code>1.14.2</code></td><td>Project settings and package manifest</td><td>Repository snapshot · no distributable build found</td></tr></tbody></table></div></details>
+      <nav class="project-pagination" aria-label="프로젝트 이동"><a href="../gashagame-vassalia/index.html">← Prev · GashaGame / VASSALIA</a><a href="../../index.html">All projects</a><span>End · CASE 04</span></nav>
+    </section>
+  </main>
+  <footer class="site-footer"><p>SOE · Team gameplay integration case study</p><a href="#content">Back to top ↑</a></footer>
+  <script src="../../scripts/media-preferences.js"></script>
+</body>
+</html>

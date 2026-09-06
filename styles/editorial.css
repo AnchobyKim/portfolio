@@ -1,0 +1,305 @@
+/* Developer portfolio: variance 6 / motion 4 / density 4.
+   Presentation layer only; source captures, content and document order stay intact. */
+:root {
+  --max-width: 1320px;
+  --space-section: clamp(3.5rem, 6vw, 5.5rem);
+  --sans: Pretendard, "Noto Sans KR", "Segoe UI", sans-serif;
+}
+
+h1, h2, h3 { text-wrap: balance; overflow-wrap: anywhere; }
+p { text-wrap: pretty; }
+code { font-family: var(--mono); }
+.site-header { min-height: 4.5rem; gap: 1.5rem; }
+.site-nav { gap: .7rem 1.4rem; font-size: .85rem; }
+.site-nav a[aria-current="page"] { color: var(--text); text-decoration-color: var(--accent); }
+.wordmark { font-family: var(--sans); letter-spacing: .025em; }
+
+/* Metadata is ordinary reading text. Numbers and symbols retain monospace below. */
+.eyebrow, .section-number, .project-kicker, .card-status,
+.developer-role, .hero-capabilities, .action-link, .signal-path,
+.project-route, .project-meta, .section-label, .diagram-title,
+.project-brief span, .release-status span, .case-tag,
+.ownership-grid strong, .technical-details summary, .evidence-shot figcaption,
+.project-pagination, .branch-trunk span, .branch-projects p,
+.trust-boundary span, .atomic-choice span, .case03-evidence-grid h3,
+.soe-role-card span, .interface-column span, .handoff-step span,
+.team-boundary-grid span, .soe-development-timeline span,
+.soe-development-timeline small, .result-outcome-grid span,
+.contribution-arc, .graph-node p, .role-grid .role-head,
+.now-next strong, .evidence-table th {
+  font-family: var(--sans);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.flow-node, .chip, .branch-steps span, .boundary-card li,
+.shared-contract span { font-family: var(--sans); }
+.eyebrow, .section-number, .project-kicker, .section-label, .case-tag {
+  color: var(--muted);
+}
+.project-kicker a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: .3em;
+}
+.project-kicker a:hover { color: var(--text); text-decoration-color: var(--accent); }
+
+/* A compact introduction opens into an ordered collection, not equal tiles. */
+.home-hero { min-height: auto; padding-block: 3rem 2rem; }
+.home-hero h1 { max-width: none; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: -.05em; }
+.developer-role { margin-bottom: 1.1rem; font-size: 1rem; }
+.hero-statement { max-width: 40rem; font-size: clamp(1.15rem, 2.3vw, 1.65rem); }
+.hero-capabilities { margin-bottom: 1rem; font-size: .85rem; }
+.home-hero .hero-actions { margin-bottom: 1.3rem; }
+.signal-path { max-width: 24rem; font-size: .72rem; color: var(--muted); }
+.signal-path i { margin-inline: .8rem; }
+.project-index { padding-block: 2rem var(--space-section); }
+.section-heading { display: block; padding-bottom: 1.25rem; }
+.section-heading h2 { font-size: clamp(2rem, 4vw, 3rem); }
+.section-number { font-size: .75rem; margin-bottom: .65rem; }
+.project-grid { display: block; }
+.project-card, .project-card:nth-child(odd) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  column-gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-content: start;
+  min-height: 0;
+  padding: 2.5rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+  background: transparent;
+}
+.project-card > :not(.project-card__media) { grid-column: 1; }
+.project-card .project-card__media {
+  grid-column: 2;
+  grid-row: 1 / 7;
+  align-self: start;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin: 0;
+  border: 0;
+  filter: none;
+  transform: none;
+  transition: none;
+}
+.project-card:hover .project-card__media { filter: none; transform: none; }
+.project-card h3 { margin-bottom: .75rem; font-size: clamp(1.5rem, 2.6vw, 2.4rem); }
+.project-kicker { font-size: .72rem; }
+.project-type { font-size: 1rem; }
+.project-route { font-size: .85rem; }
+.project-card .text-link { justify-self: start; margin-top: 1rem; }
+.project-card.project-card--primary { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.project-card--game { grid-template-columns: minmax(0, .85fr) minmax(0, 2.15fr); }
+.project-card--team { grid-template-columns: minmax(0, .7fr) minmax(0, 2.3fr); }
+.project-card--primary .project-card__media { max-width: 42rem; justify-self: end; }
+
+/* Remove the second page gutter; internal sections own their reading width. */
+.project-page main { padding-inline: 0; overflow: visible; }
+.hero { min-height: auto; padding-block: 3rem; gap: 2rem; }
+.hero-copy { min-width: 0; }
+.hero-copy h1, .hero-copy h1.long-title, .hero-copy h1.case03-title {
+  font-size: clamp(2.3rem, 4.4vw, 4.3rem);
+  line-height: 1.05;
+  letter-spacing: -.045em;
+  margin-bottom: 1rem;
+}
+.hero-lead { font-size: clamp(1.15rem, 1.8vw, 1.45rem); max-width: 42ch; }
+.hero-note { font-size: .95rem; }
+.project-meta { border: 0; padding: 0; margin: 1.25rem 0; font-size: .8rem; line-height: 1.6; }
+.hero-copy .hero-actions { gap: .75rem; }
+.action-link { font-size: .82rem; line-height: 1.3; }
+
+/* Action Required: broad cinematic frame under a compact two-column introduction. */
+.action-page .hero { grid-template-columns: 1fr; }
+.action-page .hero-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; }
+.action-page .hero-copy > * { grid-column: 2; }
+.action-page .hero-copy .eyebrow { grid-column: 1; grid-row: 1; }
+.action-page .hero-copy h1 { grid-column: 1; grid-row: 2 / 6; font-size: clamp(2.8rem, 5vw, 4.8rem); }
+.action-page .hero-copy .hero-lead { grid-row: 1 / 3; }
+.action-page .hero-copy .project-meta { margin-top: 0; }
+.action-page .hero > figure { width: 100%; }
+
+/* AInvil: ownership leads; workflow and recorded execution share the next row. */
+.ainvil-page .hero { grid-template-columns: 1fr 1fr; align-items: start; }
+.ainvil-page .hero-copy { grid-column: 1 / -1; max-width: 62rem; }
+.ainvil-page .hero > .diagram { padding: 1.5rem; border: 1px solid var(--line); }
+.ainvil-runtime-proof {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ainvil-runtime-proof img {
+  width: 100%;
+  min-height: 22rem;
+  object-fit: contain;
+  background: var(--surface);
+}
+.ainvil-composite {
+  width: min(calc(100% - 2 * var(--gutter)), 72rem);
+  margin: 0 auto 2rem;
+}
+.ainvil-composite .ainvil-visual {
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+/* Gasha/VASSALIA: architecture synopsis beside a dominant landscape runtime. */
+.case03-page .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+.case03-page .hero-copy h1.case03-title { font-size: clamp(2rem, 3.1vw, 3rem); }
+.case03-title span { color: var(--text); }
+
+/* SOE: title across the opening, contribution note beside the large team runtime. */
+.case04-page .hero { grid-template-columns: minmax(0, .8fr) minmax(0, 2.2fr); align-items: end; }
+.case04-page .hero-copy { display: contents; }
+.case04-page .hero-copy > .eyebrow { grid-column: 1 / -1; margin-bottom: -1rem; }
+.case04-page .hero-copy h1 { grid-column: 1 / -1; margin: 0; }
+.case04-page .hero-copy .hero-lead { grid-column: 1; grid-row: 3; }
+.case04-page .hero-copy .hero-note { grid-column: 1; grid-row: 4; }
+.case04-page .hero-copy .project-meta { grid-column: 1; grid-row: 5; }
+.case04-page .hero > figure { grid-column: 2; grid-row: 3 / 6; align-self: start; }
+.case04-page .hero-copy h1 { font-size: clamp(3rem, 5vw, 5rem); }
+.case04-page .hero-copy .hero-note { line-height: 1.75; }
+
+/* Original pixels and proportions are evidence, including UI near the frame edges. */
+.evidence-shot, .ainvil-visual { border: 0; background: transparent; overflow: visible; }
+.evidence-shot img, .evidence-shot video,
+.project-video--hero video, .case03-hero-media img, .soe-hero-media img {
+  width: 100%; height: auto; aspect-ratio: auto; object-fit: contain;
+  filter: none; background: var(--bg);
+}
+.evidence-shot figcaption, .ainvil-visual figcaption {
+  padding: .7rem 0 0; border: 0; color: var(--muted); font-size: .8rem; line-height: 1.6;
+}
+.section-intro { display: block; margin-bottom: 2rem; }
+.section-label { margin-bottom: 1rem; font-size: .78rem; }
+.section-intro h2 { max-width: 30ch; font-size: clamp(1.8rem, 3.1vw, 3rem); line-height: 1.2; }
+.section-intro p { max-width: 65ch; }
+.section { scroll-margin-top: 1.5rem; }
+
+/* Remove outer shells; keep actual diagram boundaries and status semantics. */
+.diagram, .evidence-card, .case-study, .branch-story,
+.atomic-purchase, .applied-card, .limit-card, .trailer-block {
+  border: 0; background: transparent; padding: 1.25rem 0;
+}
+.case-study .diagram, .technical-details__body .diagram { padding-block: .75rem; }
+.case-split, .split-diagrams, .small-cases { gap: 2rem; }
+.project-brief { gap: 2rem; margin-bottom: 2rem; }
+.project-brief article, .project-brief article:last-child {
+  border: 0; background: transparent; padding: 1rem 0;
+}
+.ownership-grid { border: 0; gap: 1.5rem; }
+.ownership-grid > div, .ownership-grid > div:last-child { border: 0; padding: .75rem 0; }
+.chip { border: 0; padding: .25rem 0; }
+.chip-row { gap: .5rem 1.2rem; }
+.boundary-card li { border: 0; padding: .2rem 0; }
+.boundary-card ul { gap: .4rem 1rem; }
+.boundary-note { border: 0; padding: .75rem 0; background: transparent; }
+.technical-details { border: 0; border-top: 1px solid var(--line-strong); background: transparent; }
+.technical-details summary { padding: 1rem 0; }
+.technical-details__body { padding: 1rem 0; }
+.technical-details .ainvil-visual { max-width: 60rem; margin-inline: auto; }
+.stat-row { border: 0; gap: 1.5rem; }
+.stat-row > div, .stat-row > div:last-child { border: 0; padding: 1rem 0; }
+.stat-row strong { font-size: clamp(1.3rem, 2.3vw, 2rem); }
+.validation-status { font-family: var(--sans); font-size: 1rem; font-weight: 500; margin-bottom: 1.5rem; }
+.release-status strong { font-family: var(--sans); }
+.release-status { margin-bottom: 1rem; }
+.graph-node { min-height: 0; }
+.flow-node { min-height: 4rem; }
+.vertical-flow .flow-node { min-height: 3rem; }
+.case04-page #environment .case-split { grid-template-columns: minmax(0, .8fr) minmax(0, 2.2fr); align-items: start; }
+.case04-page #game > .evidence-shot { max-width: 42rem; }
+
+/* Section numbers identify place; this compact index performs navigation. */
+.case-nav {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: 0 var(--gutter) 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .82rem;
+}
+.case-nav a {
+  color: inherit;
+  text-decoration-color: transparent;
+  text-underline-offset: .35rem;
+}
+.case-nav a:hover { color: var(--text); text-decoration-color: var(--accent); }
+.case04-page #team-development { padding-block: clamp(2.5rem, 4vw, 3.5rem); }
+.case04-page #team-development .section-intro { margin-bottom: 0; }
+
+/* Motion is feedback only. Gameplay supplies the movement. */
+.action-link, .text-link, .site-nav a, .technical-details summary {
+  transition: color 180ms ease, background-color 180ms ease, text-decoration-color 180ms ease;
+}
+.action-link:active { transform: translateY(1px); }
+@media (max-width: 1000px) {
+  .site-header { flex-direction: column; align-items: flex-start; gap: .85rem; padding-block: 1rem; }
+  .hero-copy h1, .hero-copy h1.long-title { font-size: 2.8rem; }
+}
+@media (max-width: 767px) {
+  .home-hero { min-height: auto; padding-block: 2rem; }
+  .home-hero h1 { font-size: clamp(2rem, 8.5vw, 3.5rem); }
+  .site-nav { gap: .7rem 1rem; font-size: .8rem; }
+  .project-card, .project-card:nth-child(odd),
+  .hero, .ainvil-page .hero, .case03-page .hero, .case04-page .hero,
+  .action-page .hero-copy, .case04-page #environment .case-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project-card > :not(.project-card__media), .project-card .project-card__media,
+  .action-page .hero-copy > *, .action-page .hero-copy .eyebrow,
+  .action-page .hero-copy h1, .action-page .hero-copy .hero-lead {
+    grid-column: auto; grid-row: auto;
+  }
+  .project-card .project-kicker { order: 1; }
+  .project-card h3 { order: 2; }
+  .project-card .project-type { order: 3; }
+  .project-card .project-card__media { order: 4; margin: .5rem 0 1.5rem; }
+  .project-card .project-route { order: 5; }
+  .project-card .text-link { order: 6; }
+  .project-card--primary .project-card__media { max-width: none; }
+  .case04-page .hero-copy { display: block; }
+  .case04-page .hero > figure { grid-column: auto; grid-row: auto; }
+  .case04-page .hero-copy > .eyebrow { margin-bottom: 1rem; }
+  .case04-page .hero-copy h1 { margin-bottom: 1rem; }
+  .project-card { padding-block: 2rem; }
+  .hero { padding-block: 2rem; }
+  .hero-copy h1, .hero-copy h1.long-title, .hero-copy h1.case03-title { font-size: clamp(2rem, 8vw, 3.25rem); }
+  .project-brief, .ownership-grid { grid-template-columns: 1fr; gap: .75rem; }
+  .stat-row > div, .stat-row--four > div:nth-child(-n+2) { border: 0; }
+  .role-grid { display: grid; grid-template-columns: repeat(4, minmax(8rem, 1fr)); }
+  .case-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+  .case-nav a { flex: 0 0 auto; }
+  .project-page .hero { display: flex; flex-direction: column; }
+  .project-page .hero-copy { display: contents; }
+  .project-page .hero .eyebrow { order: 1; }
+  .project-page .hero h1 { order: 2; }
+  .project-page .hero .hero-lead { order: 3; }
+  .project-page .hero > figure { order: 4; }
+  .project-page .hero .hero-note { order: 5; }
+  .project-page .hero .project-meta { order: 6; }
+  .project-page .hero .hero-actions { order: 7; }
+  .ainvil-page .hero > .diagram { order: 4; }
+  .ainvil-page .hero > .ainvil-runtime-proof { order: 5; }
+  .ainvil-page .hero .hero-note { order: 3; }
+  .ainvil-page .hero .hero-lead { order: 6; }
+  .ainvil-page .hero .project-meta { order: 7; }
+  .ainvil-runtime-proof img { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .action-link, .text-link, .site-nav a, .technical-details summary { transition: none; }
+  .action-link:active { transform: none; }
+}
